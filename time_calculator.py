@@ -19,7 +19,7 @@ def add_time(start, duration, day = None):
     hend = hend + madd
     hremaing = hend % 12
     hadd = hend // 12
-    days = hadd // 24
+    days = hduration // 24
     #AMPM Calculation
     if ampmstart in ampm:
         ampmint = ampm.get(ampmstart)
@@ -27,6 +27,7 @@ def add_time(start, duration, day = None):
         ampmint += 0
     elif ampmint == 2:
         ampmint -= 1
+        days += 1
     else:
         ampmint += 1
     for key, value in ampm.items():
@@ -42,9 +43,9 @@ def add_time(start, duration, day = None):
     if days <= 0:
         newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend)
     elif days == 1:
-        newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (' + str(days) + ' days later)')
-    else:
         newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (next day)')
+    else:
+        newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (' + str(days) + ' days later)')
 
     # use MOD 60 for Mins and MOD 12 for hours 10 % 3 = 1
     # use Floor division for the amount of hours or mins needed to pass 10 // 3 = 3
