@@ -3,6 +3,15 @@ def add_time(start, duration, day = None):
         'AM': 1,
         'PM': 2
     }
+    weekdays = {
+        'Monday': 1,
+        'Tuesday': 2,
+        'Wednesday': 3,
+        'Thursday': 4,
+        'Friday': 5,
+        'Saturday': 6,
+        'Sunday': 7
+    }
     #pulling data
     pos = start.index(':')
     hstart = int(start[:pos])
@@ -19,7 +28,7 @@ def add_time(start, duration, day = None):
     hend = hend + madd
     hremaing = hend % 12
     hadd = hend // 12
-    days = hduration // 24
+    days = (hduration) // 24
     #AMPM Calculation
     if ampmstart in ampm:
         ampmint = ampm.get(ampmstart)
@@ -40,12 +49,30 @@ def add_time(start, duration, day = None):
     if hremaing == 0:
         hremaing = 12
     #Deciding on a print statement depending on how many days have passed
-    if days <= 0:
-        newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend)
-    elif days == 1:
-        newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (next day)')
+    if day == None:
+        if days <= 0:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend)
+        elif days == 1:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (next day)')
+        else:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (' + str(days) + ' days later)')
     else:
-        newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ' (' + str(days) + ' days later)')
+        inputday = str(day).lower()
+        inputday = inputday.capitalize()
+        if inputday in weekdays:
+            daynum = weekdays.get(inputday)
+        daynum = (daynum + days)
+        if daynum != 7:
+            daynum = (daynum % 7)
+        for key, value in weekdays.items():
+            if daynum == value:
+                day = key
+        if days <= 0:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ', ' + day)
+        elif days == 1:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ', ' + day + ' (next day)')
+        else:
+            newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ', ' + day + ' (' + str(days) + ' days later)')
 
     # use MOD 60 for Mins and MOD 12 for hours 10 % 3 = 1
     # use Floor division for the amount of hours or mins needed to pass 10 // 3 = 3
