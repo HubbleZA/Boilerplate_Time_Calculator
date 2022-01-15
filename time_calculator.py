@@ -1,4 +1,5 @@
 def add_time(start, duration, day = None):
+    #dictionaries used to get data from
     ampm = {
         'AM': 1,
         'PM': 2
@@ -45,7 +46,7 @@ def add_time(start, duration, day = None):
     #Putting a 0 infront of a single digit
     if len(str(mremaing)) == 1:
         mremaing = '0' + str(mremaing)
-    #making a 0 go to a 12 for the hour
+    #making a 00 go to a 12 for the hour
     if hremaing == 0:
         hremaing = 12
     #Deciding on a print statement depending on how many days have passed
@@ -74,8 +75,6 @@ def add_time(start, duration, day = None):
         else:
             newtime = (str(hremaing) + ':' + str(mremaing) + ' ' + ampmend + ', ' + day + ' (' + str(days) + ' days later)')
 
-    # use MOD 60 for Mins and MOD 12 for hours 10 % 3 = 1
-    # use Floor division for the amount of hours or mins needed to pass 10 // 3 = 3
     new_time = (newtime)
 
     return new_time
